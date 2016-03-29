@@ -88,7 +88,7 @@ if(opt.buildGencode === true)
   console.log('Build GENCODE...');
 
   //Build the gencode
-  genes = BuildGenCode(files.input.replace('{type}', 'genes_gencode'), genes);
+  genes = BuildGenCode(files.input.replace('{type}', 'gencode'), genes);
 
   //Show done in console
   console.log('GENCODE completed!');
