@@ -23,9 +23,6 @@ function BuildTranscripts(file, genes)
 	//Output transcripts
 	var tr = {};
 
-	//Show in console
-	console.log('Detected ' + content.length + ' transcripts from ' + file);
-
 	//Read all lines
 	for(var i = 0; i < content.length; i++)
 	{
