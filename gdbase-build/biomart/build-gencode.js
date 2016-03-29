@@ -5,9 +5,7 @@ var fs = require('fs');
 var ParseLine = require('./parse-line.js');
 
 //Import query
-var queryGenes = require('./query/genes.json');
 var queryGenCode = require('./query/gencode.json');
-var queryTranscripts = require('./query/transcripts.json');
 
 //Build gencode from file
 function BuildGenCode(file, genes)
