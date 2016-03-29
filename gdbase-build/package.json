@@ -1,0 +1,6 @@
+{
+	"name": "gdbase-build",
+	"version": "0.0.1",
+	"private": true,
+	"dependencies": { "command-line-args": "2.1.6" }
+}
