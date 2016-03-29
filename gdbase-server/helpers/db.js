@@ -30,10 +30,10 @@ exports.Connect = function(opt, callback)
 		}
 
 		//Save the database connection
-    db = datab;
+		db = datab;
 
 		//Do the callback
-    callback();
+		callback();
 
   });
 };
@@ -44,18 +44,15 @@ exports.Get = function(){ return db; };
 //Close the connection
 exports.Close = function(callback){
 
-	//Check the database status
-	if(state.db)
-	{
-		//Close the connection to the database
-    state.db.close(function(err, result){
+	//Close the connection to the database
+	db.close(function(err, result){
 
-			//Destroy the database
-			db = null;
+		//Destroy the database
+		db = null;
 
-			//Do the callback
-      callback(err);
-    });
+		//Do the callback
+		callback(err);
 
-  }
+  });
+	
 };
