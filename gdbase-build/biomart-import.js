@@ -82,7 +82,7 @@ command = command.replace('{output}', output);
 console.log('Wait...');
 
 //Run the import
-execSync(command);
+var log = execSync(command);
 
 //Show confirmation
 console.log('Saved as ' + output);
