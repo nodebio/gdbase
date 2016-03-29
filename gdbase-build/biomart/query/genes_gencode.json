@@ -1,0 +1,12 @@
+{
+	"filters":
+	[
+		{ "name": "transcript_gencode_basic", "excluded": "0" }
+	],
+	"attributes":
+	[
+		{ "id": "gene", "name": "ensembl_gene_id" },
+		{ "id": "transcript", "name": "ensembl_transcript_id" },
+		{ "id": "biotype", "name": "gene_biotype" }
+	]
+}

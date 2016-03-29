@@ -1,0 +1,16 @@
+{
+	"filters": [],
+	"attributes":
+	[
+		{ "id": "gene", "name": "ensembl_gene_id" },
+		{ "id": "transcript", "name": "ensembl_transcript_id" },
+		{ "id": "id", "name": "ensembl_exon_id" },
+		{ "id": "chromosome", "name": "chromosome_name" },
+		{ "id": "start", "name": "exon_chrom_start" },
+		{ "id": "end", "name": "exon_chrom_end" },
+		{ "id": "strand", "name": "strand" },
+		{ "id": "rank", "name": "rank" },
+		{ "id": "coding_start", "name": "genomic_coding_start" },
+		{ "id": "coding_end", "name": "genomic_coding_end" }
+	]
+}

@@ -1,0 +1,14 @@
+{
+	"filters": [],
+	"attributes":
+	[
+		{ "id": "id", "name": "ensembl_gene_id" },
+		{ "id": "name", "name": "external_gene_name" },
+		{ "id": "chromosome", "name": "chromosome_name" },
+		{ "id": "start", "name": "start_position" },
+		{ "id": "end", "name": "end_position" },
+		{ "id": "strand", "name": "strand" },
+		{ "id": "biotype", "name": "gene_biotype" },
+		{ "id": "description", "name": "description" }
+	]
+}

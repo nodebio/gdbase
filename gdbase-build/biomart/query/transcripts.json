@@ -1,0 +1,16 @@
+{
+	"filters": [],
+	"attributes":
+	[
+		{ "id": "gene", "name": "ensembl_gene_id" },
+		{ "id": "id", "name": "ensembl_transcript_id" },
+		{ "id": "chromosome", "name": "chromosome_name" },
+		{ "id": "start", "name": "transcript_start" },
+		{ "id": "end", "name": "transcript_end" },
+		{ "id": "strand", "name": "strand" },
+		{ "id": "ssite", "name": "transcription_start_site" },
+		{ "id": "source", "name": "transcript_source" },
+		{ "id": "biotype", "name": "transcript_biotype" },
+		{ "id": "refseq", "name": "refseq_mrna" }
+	]
+}
