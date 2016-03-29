@@ -73,4 +73,4 @@ function BuildTranscripts(file, genes)
 }
 
 //Exports to node
-module.exports = BuildGenes;
+module.exports = BuildTranscripts;
