@@ -41,7 +41,7 @@ app.use(session({secret: '59B93087-70BC-4EB9-993A-A61FC302F6C0'}));
 app.use(require('./middlewares/set-header.js').CORS);
 
 //Connect to database
-db.Connect(Config.db);
+db.Connect(Config.db, function(err){ if(err){ process.exit(1); } });
 
 //Set the controllers and path
 app.use(require('./controllers/index.js'));
