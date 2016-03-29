@@ -35,7 +35,8 @@ exports.Connect = function(opt, callback)
 		//Do the callback
 		callback();
 
-  });
+	});
+	
 };
 
 //Get the database
