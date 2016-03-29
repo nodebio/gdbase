@@ -19,9 +19,6 @@ function BuildGenes(file)
 	//Split by line break
 	content = content.split('\n');
 
-	//Show in console
-	console.log('Detected ' + content.length + ' genes from ' + file);
-
 	//Output genes array
 	var genes = [];
 
