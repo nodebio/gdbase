@@ -14,13 +14,13 @@ function ParseLine(line, cols, exclude)
 		var col = cols[i].id;
 
 		//Check for exclude
-		if(exclude.indexOf(col) < 0){ continue; }
+		if(exclude.indexOf(col) > 0){ continue; }
 
 		//Check for empty
 		if(line[i] === '' || line[i] === ' '){ continue; }
 
 		//Save the object
-		obj[col] = line[j];
+		obj[col] = line[i];
 	}
 
 	//Return the new object
