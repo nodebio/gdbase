@@ -1,5 +1,5 @@
 //Connection url
-//mongodb://USERNAME:PASSWORD@DBHOST:DBPORT/DBNAME
+//mongodb://USERNAME:PASSWORD@DBHOST:DBPORT/DBNAME?authSource=DATABASEADMIN
 
 //Import dependencies
 var MongoClient = require('mongodb').MongoClient;
@@ -14,10 +14,10 @@ exports.Connect = function(opt, callback)
 	if(db){ return callback(); }
 
 	//Create the url
-	var url = 'mongodb://' + opt.user + ':' + opt.pass + '@' + opt.host + ':' + opt.port + '/' + opt.db;
+	var url = 'mongodb://' + opt.user + ':' + opt.pass + '@' + opt.host + ':' + opt.port + '/' + opt.db + '?authSource=' + opt.auth;
 
 	//Else, connect to database
-  MongoClient.connect(url, function(err, datab){
+	MongoClient.connect(url, function(err, datab){
 
 		//Check for error
 		if(err)
@@ -45,7 +45,7 @@ exports.Get = function(){ return db; };
 exports.Close = function(callback){
 
 	//Check the database status
-  if(state.db)
+	if(state.db)
 	{
 		//Close the connection to the database
     state.db.close(function(err, result){
