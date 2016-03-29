@@ -14,7 +14,7 @@ function ParseLine(line, cols, exclude)
 		var col = cols[i].id;
 
 		//Check for exclude
-		if(exclude.indexOf(col) > 0){ continue; }
+		if(exclude.indexOf(col) > -1){ continue; }
 
 		//Check for empty
 		if(line[i] === '' || line[i] === ' '){ continue; }
