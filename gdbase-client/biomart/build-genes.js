@@ -1,5 +1,6 @@
 //Import dependencies
 var fs = require('fs');
+var objectSort = require('objectsort');
 
 //Import libs
 var ParseLine = require('./parse-line.js');
@@ -40,6 +41,9 @@ function BuildGenes(file)
 		//Save the gene
 		genes.push(obj);
 	}
+
+	//Sort the genes by chromosome and start
+	genes = objectSort(genes, ['chromosome', 'start']);
 
 	//Return the genes list
 	return genes;

@@ -1,3 +1,24 @@
+//Function for parse the value
+function ParseValue(value, col)
+{
+	//Check for strand
+	if(col === 'strand')
+	{
+		//Return the strand value
+		return (value === '-1') ? '-' : '+';
+	}
+
+	//Check for start, end or rank
+	else if(col === 'start' || col === 'end' || col === 'rank')
+	{
+		//Return the integer value
+		return parseInt(value);
+	}
+
+	//Default, return the value
+	return value;
+}
+
 //Function for parse a file line
 function ParseLine(line, cols, exclude)
 {
@@ -20,7 +41,7 @@ function ParseLine(line, cols, exclude)
 		if(line[i] === '' || line[i] === ' '){ continue; }
 
 		//Save the object
-		obj[col] = line[i];
+		obj[col] = ParseValue(line[i], col);
 	}
 
 	//Return the new object
