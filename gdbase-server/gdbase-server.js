@@ -11,6 +11,9 @@ var session = require('express-session');
 //Import helpers
 var db = require('./helpers/db.js');
 
+//Import middlewares
+var SetHeaders = require('./middlewares/set-headers.js');
+
 //Import config
 var Config = require('../gdbase-config.json');
 
@@ -38,7 +41,7 @@ app.use(cookieParser('CEAF3FA4-F385-49AA-8FG6-54766A9874F2'));
 app.use(session({secret: '59B93087-70BC-4EB9-993A-A61FC302F6C0'}));
 
 //Enable the cors
-app.use(require('./middlewares/set-header.js').CORS);
+app.use(SetHeaders.CORS);
 
 //Connect to database
 db.Connect(Config.db, function(err){ if(err){ process.exit(1); } });
