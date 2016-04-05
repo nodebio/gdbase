@@ -2,5 +2,10 @@
 	"name": "gdbase-client",
 	"version": "0.0.1",
 	"private": true,
-	"dependencies": { "command-line-args": "2.1.6" }
+	"dependencies":
+	{
+		"command-line-args": "2.1.6",
+		"objectsort": "0.2.0",
+		"prompt-sync": "4.0.4"
+	}
 }
