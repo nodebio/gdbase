@@ -4,6 +4,7 @@
 	[
 		{ "id": "gene", "name": "ensembl_gene_id" },
 		{ "id": "id", "name": "ensembl_transcript_id" },
+		{ "id": "name", "name": "external_transcript_name" },
 		{ "id": "chromosome", "name": "chromosome_name" },
 		{ "id": "start", "name": "transcript_start" },
 		{ "id": "end", "name": "transcript_end" },

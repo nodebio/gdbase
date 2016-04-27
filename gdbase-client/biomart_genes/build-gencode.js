@@ -19,6 +19,15 @@ function BuildGenCode(file, genes)
 	//Split by line break
 	content = content.split('\n');
 
+	//Show in console
+	process.stdout.write('Build gencode: ');
+
+	//Counter
+	var counter = 1;
+
+	//Add new hastag
+	var hash = content.length/10;
+
 	//Gencode object
 	var gencode = {};
 
@@ -49,6 +58,19 @@ function BuildGenCode(file, genes)
 
 		//Save the gene
 		gencode[gen].push(line[1]);
+
+		//Increment the counter
+		counter = counter + 1;
+
+		//Check for add a new hastag
+		if(counter > hash)
+		{
+			//Add a new #
+			process.stdout.write('#');
+
+			//Restart the counter
+			counter = 1;
+		}
 	}
 
 	//Read all the genes
@@ -79,6 +101,9 @@ function BuildGenCode(file, genes)
 			genes[i].transcripts[j].gencode = true;
 		}
 	}
+
+	//Show completed in console
+	process.stdout.write('  Completed!\n');
 
 	//Return the genes list
 	return genes;

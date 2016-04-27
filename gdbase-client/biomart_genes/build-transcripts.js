@@ -5,12 +5,11 @@ var fs = require('fs');
 var ParseLine = require('./parse-line.js');
 
 //Import query
-var queryExons = require('./query/exons.json');
 var queryGenes = require('./query/genes.json');
 var queryTranscripts = require('./query/transcripts.json');
 
-//Build exons from file
-function BuildExons(file, genes)
+//Build genes from file
+function BuildTranscripts(file, genes)
 {
 	//Get the file content
 	var content = fs.readFileSync(file, 'utf8');
@@ -21,8 +20,17 @@ function BuildExons(file, genes)
 	//Split by line break
 	content = content.split('\n');
 
-	//Output
-	var out = {};
+	//Show in console
+	process.stdout.write('Build transcripts: ');
+
+	//Output transcripts
+	var tr = {};
+
+	//Counter
+	var counter = 1;
+
+	//Add new hastag
+	var hash = content.length/10;
 
 	//Read all lines
 	for(var i = 0; i < content.length; i++)
@@ -39,48 +47,52 @@ function BuildExons(file, genes)
 		//Get the gene name
 		var gen = line[0];
 
-		//Get the transcript name
-		var tra = line[1];
-
 		//Check the gene
-		if(typeof out[gen] === 'undefined'){ out[gen] = {}; }
-
-		//Check the transcript
-		if(typeof out[gen][tra] === 'undefined'){ out[gen][tra] = []; }
+		if(typeof tr[gen] === 'undefined')
+		{
+			//Create the new gene
+			tr[gen] = [];
+		}
 
 		//Parse the line
-		var obj = ParseLine(line, queryExons.attributes, ['gene', 'transcript']);
+		var obj = ParseLine(line, queryTranscripts.attributes, ['gene']);
 
 		//Save the transcript
-		out[gen][tra].push(obj);
+		tr[gen].push(obj);
+
+		//Increment the counter
+		counter = counter + 1;
+
+		//Check for add a new hastag
+		if(counter > hash)
+		{
+			//Add a new #
+			process.stdout.write('#');
+
+			//Restart the counter
+			counter = 1;
+		}
 	}
 
 	//Read all the genes
 	for(var i = 0; i < genes.length; i++)
 	{
 		//Get the gene id
-		var gen = genes[i].id;
+		var id = genes[i].id;
 
 		//Check if gene exists
-		if(typeof out[gen] === 'undefined'){ continue; }
+		if(typeof tr[id] === 'undefined'){ continue; }
 
-		//Read all the transcripts for this gene
-		for(var j = 0; j < genes[i].transcripts.length; j++)
-		{
-			//Get the transcript id
-			var tra = genes[i].transcripts[j].id;
-
-			//Check if transcript exists
-			if(typeof out[gen][tra] === 'undefined'){ continue; }
-
-			//Save the transcript
-			genes[i].transcripts[j].exons = out[gen][tra];
-		}
+		//Save the transcripts
+		genes[i].transcripts = tr[id];
 	}
+
+	//Show completed in console
+	process.stdout.write('  Completed!\n');
 
 	//Return the updated genes list
 	return genes;
 }
 
 //Exports to node
-module.exports = BuildExons;
+module.exports = BuildTranscripts;
