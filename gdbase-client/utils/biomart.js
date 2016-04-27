@@ -1,37 +1,31 @@
 //Function to get the biomart command
-module.exports.Command = function(specie, assembly)
+exports.Command = function(specie, assembly)
 {
 	//Create the base command
-	var command = 'wget -O {output} \'http://{assembly}.ensembl.org/biomart/martservice?query={xml}\'';
+	var command = 'wget -O {output} \'http://{biomart}\'';
 
-	//Check the specie and assembly
-	if(specie === 'hsapiens' && assembly === 'grch37')
-	{
-		//Replace in the command
-		command = command.replace('{assembly}', 'grch37');
-	}
-	else
-	{
-		//Relace by default
-		command = command.replace('{assembly}', 'www');
-	}
+	//Import the specie info
+	var Specie = require('../species/' + specie + '.json');
+
+	//Replace in the command
+	command = command.replace('{biomart}', Specie.biomart[assembly]);
 
 	//Return the command
 	return command;
 };
 
 //Function to build the xml file
-module.exports.XML = function(obj, specie)
+exports.XML = function(obj, specie, rep)
 {
+	//Check the replace object
+	if(typeof rep === 'undefined'){ var rep = {}; }
+
+	//Add for replace the specie
+	rep['{SPECIE}'] = specie;
+
 	//Query object
 	var query = { virtualSchemaName: 'default', formatter: 'TSV', header: '0', uniqueRows: '0',
 	count: '', datasetConfigVersion: '0.6' };
-
-	//Dataset object
-	var dataset = { name: "{specie}_gene_ensembl", interface: "default" };
-
-	//Replace the dataset specie name
-	dataset.name = dataset.name.replace('{specie}', specie);
 
 	//Check for filters
 	if(typeof obj.filters === 'undefined'){ obj.filters = []; }
@@ -49,7 +43,7 @@ module.exports.XML = function(obj, specie)
 	xml = xml + '<Query ' + XMLArgs(query) + '>';
 
 	//Add the dataset
-	xml = xml + '<Dataset ' + XMLArgs(dataset) + '>';
+	xml = xml + '<Dataset ' + XMLArgs(obj.dataset) + '>';
 
 	//Add the filters
 	for(var i = 0; i < obj.filters.length; i++)
@@ -71,9 +65,19 @@ module.exports.XML = function(obj, specie)
 	//Close the query
 	xml = xml + '</Query>';
 
+	//Replace on the xml file
+	for(var key in rep)
+	{
+		//Create the reg expression
+		var regex = new RegExp(key, 'gi');
+
+		//Replace in the entrie xml
+		xml = xml.replace(regex, rep[key]);
+	}
+
 	//Return the xml
 	return xml;
-}
+};
 
 //Function for add the xml args
 function XMLArgs(obj, exclude)
