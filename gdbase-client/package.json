@@ -6,6 +6,8 @@
 	{
 		"command-line-args": "2.1.6",
 		"objectsort": "0.2.0",
-		"prompt-sync": "4.0.4"
+		"prompt-sync": "4.0.4",
+		"n-readlines": "0.2.2",
+		"mkdirp": "0.5.1"
 	}
 }
