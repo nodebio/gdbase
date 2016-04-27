@@ -33,6 +33,32 @@ exports.Source = function(specie, assembly, dataset)
 	return path.join(Config.data.path, source);
 };
 
+//Get the source file
+exports.SourceFile = function(service, dataset, rep)
+{
+	//Check the replace options
+	if(typeof rep === 'undefined'){ var rep = {}; }
+
+	//Get the source file for the selected service
+	var file = Config.data.source_files[service][dataset];
+
+	//Replace all
+	for(var key in rep)
+	{
+		//Replace in the key
+		var key2 = key.replace(/{/g, '').replace(/}/g, '');
+
+		//Create the regex
+		var regex = new RegExp('{' + key2 + '}', 'gi');
+
+		//Replace
+		file = file.replace(regex, rep[key]);
+	}
+
+	//Return the file
+	return file;
+};
+
 //Get the output file
 exports.Output = function(specie, assembly, dataset)
 {
