@@ -17,10 +17,13 @@ module.exports = function(opt)
 	//Get the output file
 	var output = UtilsFile.Biomart(opt.specie, opt.assembly, opt.import);
 
+	//Get the command
+	var command = UtilsBiomart.Command();
+
 	//Check the specie and assembly
 	if(opt.specie === 'hsapiens' && opt.assembly === 'grch37')
 	{
-		//Replace on the command
+		//Replace in the command
 		command = command.replace('{assembly}', 'grch37');
 	}
 	else
@@ -33,7 +36,7 @@ module.exports = function(opt)
 	var query = require('./query/' + opt.import + '.json');
 
 	//Get the xml
-	var xml = UtilsXML(query, opt.specie);
+	var xml = UtilsBiomart.XML(query, opt.specie);
 
 	//Replace the xml
 	command = command.replace('{xml}', xml);
