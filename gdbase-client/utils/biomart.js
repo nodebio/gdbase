@@ -1,8 +1,23 @@
 //Function to get the biomart command
-module.exports.Command = function()
+module.exports.Command = function(specie, assembly)
 {
-	//Return the biomart command
-	return 'wget -O {output} \'http://{assembly}.ensembl.org/biomart/martservice?query={xml}\'';
+	//Create the base command
+	var command = 'wget -O {output} \'http://{assembly}.ensembl.org/biomart/martservice?query={xml}\'';
+
+	//Check the specie and assembly
+	if(specie === 'hsapiens' && assembly === 'grch37')
+	{
+		//Replace in the command
+		command = command.replace('{assembly}', 'grch37');
+	}
+	else
+	{
+		//Relace by default
+		command = command.replace('{assembly}', 'www');
+	}
+
+	//Return the command
+	return command;
 };
 
 //Function to build the xml file
