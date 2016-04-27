@@ -1,5 +1,5 @@
 //Biomart Import
-//Usage: node biomart-import.js --specie SPECIE --assembly ASSEMBLY --import IMPORT
+//Usage: node biomart-import.js --specie SPECIE --assembly ASSEMBLY --dataset DATASET
 
 //Import dependencies
 var commandLineArgs = require('command-line-args');
@@ -8,7 +8,7 @@ var commandLineArgs = require('command-line-args');
 var cli = commandLineArgs([
   { name: 'specie', type: String },
   { name: 'assembly', type: String },
-  { name: 'import', type: String }
+  { name: 'dataset', type: String }
 ]);
 
 //Get the command line args
@@ -20,8 +20,8 @@ if(typeof opt.specie === 'undefined'){ return console.error('No specie provided.
 //Check the assembly
 if(typeof opt.assembly === 'undefined'){ return console.error('No assembly provided...'); }
 
-//Check the import option
-if(typeof opt.import === 'undefined'){ return console.error('No import feature provided...'); }
+//Check the dataset option
+if(typeof opt.dataset === 'undefined'){ return console.error('No dataset provided...'); }
 
 //Import
-require('./biomart/import.js')(opt);
+require('./biomart_' + opt.dataset + '/import.js')(opt);
