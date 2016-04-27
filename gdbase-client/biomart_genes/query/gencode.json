@@ -1,8 +1,6 @@
 {
-	"filters":
-	[
-		{ "name": "transcript_gencode_basic", "excluded": "0" }
-	],
+	"dataset": { "name": "hsapiens_gene_ensembl", "interface": "default" },
+	"filters":[ { "name": "transcript_gencode_basic", "excluded": "0" } ],
 	"attributes":
 	[
 		{ "id": "gene", "name": "ensembl_gene_id" },
