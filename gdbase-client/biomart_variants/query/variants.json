@@ -1,5 +1,5 @@
 {
-	"dataset": { "name": "hsapiens_snp", "interface": "default" },
+	"dataset": { "name": "{SPECIE}_snp", "interface": "default" },
 	"filters": [ { "name": "chr_name", "value": "{CHROMOSOME}" } ],
 	"attributes":
 	[
