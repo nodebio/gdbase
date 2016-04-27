@@ -17,6 +17,10 @@
 	{
 		"path": "/srv/gdbase/gdbase-data/",
 		"output": "{specie}_{assembly}_{dataset}.json",
-		"source": "source/{specie}_{assembly}_{dataset}/"
+		"source": "source/{specie}_{assembly}_{dataset}/",
+		"source_files":
+		{
+			"biomart": { "genes": "biomart_{feature}.txt", "variants": "biomart_variants_{chromosome}.txt" }
+		}
 	}
 }
