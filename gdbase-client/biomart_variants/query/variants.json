@@ -1,0 +1,14 @@
+{
+	"dataset": { "name": "hsapiens_snp", "interface": "default" },
+	"filters": [ { "name": "chr_name", "value": "{CHROMOSOME}" } ],
+	"attributes":
+	[
+		{ "id": "id", "name": "refsnp_id" },
+		{ "id": "chromosome", "name": "chr_name" },
+		{ "id": "start", "name": "chrom_start" },
+		{ "id": "end", "name": "chrom_end" },
+		{ "id": "strand", "name": "chrom_strand" },
+		{ "id": "allele", "name": "allele" },
+		{ "id": "freq", "name": "minor_allele_freq" }
+	]
+}
