@@ -1,5 +1,5 @@
 {
-	"dataset": { "name": "hsapiens_gene_ensembl", "interface": "default" },
+	"dataset": { "name": "{SPECIE}_gene_ensembl", "interface": "default" },
 	"filters": [],
 	"attributes":
 	[
