@@ -1,0 +1,22 @@
+{
+	"server":
+	{
+		"port": 4000,
+		"host": ""
+	},
+	"db":
+  {
+		"port": "29555",
+    "host": "localhost",
+    "user": "gdbase",
+    "pass": "testdb",
+    "db": "gdbase",
+		"auth": "admin"
+  },
+	"data":
+	{
+		"path": "/srv/gdbase/gdbase-data/",
+		"output": "{specie}_{assembly}_{dataset}.json",
+		"source": "source/{specie}_{assembly}_{dataset}/"
+	}
+}
