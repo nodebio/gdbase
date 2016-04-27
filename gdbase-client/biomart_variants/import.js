@@ -56,7 +56,7 @@ module.exports = function(opt)
 		console.log('Downloading variants for chromosome ' + chr + '...');
 
 		//Run the import
-		var log = execSync(command, { stdio: [ 0, 0, 1 ] });
+		var log = execSync(command, { stdio: 'ignore' });
 	}
 
 	//Show confirmation
