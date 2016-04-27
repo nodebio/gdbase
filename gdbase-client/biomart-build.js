@@ -5,14 +5,10 @@
 var commandLineArgs = require('command-line-args');
 var fs = require('fs');
 
-//Import build biomart
-var Build = require('./biomart/build.js');
-
 //Initialize the command line arguments options
 var cli = commandLineArgs([
   { name: 'specie', type: String },
   { name: 'assembly', type: String },
-  { name: 'source', type: String },
   { name: 'buildGenes', alias: 'g', type: Boolean },
   { name: 'buildTranscripts', alias: 't', type: Boolean },
   { name: 'buildExons', alias: 'e', type: Boolean },
@@ -38,4 +34,4 @@ if(typeof opt.buildExons === 'undefined'){ opt.buildExons = false; }
 if(typeof opt.buildGencode === 'undefined'){ opt.buildGencode = false; }
 
 //Build
-Build(opt);
+require('./biomart/build.js')(opt);
