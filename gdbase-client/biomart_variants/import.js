@@ -27,7 +27,6 @@ module.exports = function(opt)
 
 	//Create the folder
 	mkdirp.sync(folder);
-	Specie.chromosomes = ['X'];
 
 	//Create all the chromosomes
 	for(var i = 0; i < Specie.chromosomes.length; i++)
