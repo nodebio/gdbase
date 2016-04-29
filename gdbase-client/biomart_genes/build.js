@@ -1,14 +1,18 @@
 //Import dependencies
 var fs = require('fs');
+var path = require('path');
 
 //Import biomart libs
-var BuildExons = require('./build-exons.js');
-var BuildGenes = require('./build-genes.js');
-var BuildGenCode = require('./build-gencode.js');
-var BuildTranscripts = require('./build-transcripts.js');
+var Build = {
+	'exons': require('./build-exons.js'),
+	'genes': require('./build-genes.js'),
+	'gencode': require('./build-gencode.js'),
+	'transcripts': require('./build-transcripts.js')
+};
 
 //Import utils
-var UtilsFile = require('../utils/file.js');
+var UtilsBiomart = require('../utils/biomart.js');
+var UtilsData = require('../utils/data.js');
 
 //Function for build from biomart source
 module.exports = function(opt)
@@ -19,50 +23,30 @@ module.exports = function(opt)
 	//Parse the assembly
 	opt.assembly = opt.assembly.toLowerCase();
 
+	//Get the source folder
+	var folder = UtilsData.Source(opt.specie, opt.assembly, 'genes');
+
+	//Get the specie info
+	var Specie = require('../species/' + opt.specie + '.json');
+
 	//Initialize the genes
 	var genes = [];
 
-	//Get the input file
-	var input_genes = UtilsFile.Biomart(opt.specie, opt.assembly, 'genes');
-
-	//Build the genes structure
-	genes = BuildGenes(input_genes);
-
-	//Check for build the transcripts
-	if(opt.buildTranscripts === true)
+	//REad all the features
+	for(var i = 0; i < Specie.features.length; i++)
 	{
-		//Get the input transcripts file
-		var input_transcripts = UtilsFile.Biomart(opt.specie, opt.assembly, 'transcripts');
+		//Get the feature
+		var feature = Specie.features[i];
 
-	  //Build the transcripts
-	  genes = BuildTranscripts(input_transcripts, genes);
-	}
+		//Get the input file
+		var input = path.join(folder, UtilsData.SourceFile('biomart', 'genes', { feature: feature }));
 
-	//Check for build the gencode
-	if(opt.buildGencode === true)
-	{
-		//Get the input gencode file
-		var input_gencode = UtilsFile.Biomart(opt.specie, opt.assembly, 'gencode');
-
-	  //Build the gencode
-	  genes = BuildGenCode(input_gencode, genes);
-	}
-
-	//Check for build the genes
-	if(opt.buildExons === true)
-	{
-	  //Check if user has build the transcripts
-	  if(opt.buildTranscripts === false){ return console.error('You must set the build transcripts options for build the exons...'); }
-
-		//Get the input exons file
-		var input_exons = UtilsFile.Biomart(opt.specie, opt.assembly, 'exons');
-
-	  //Build exons
-	  genes = BuildExons(input_exons, genes);
+		//Build the feature
+		genes = Build[feature](input, genes);
 	}
 
 	//Get the output file
-	var output = UtilsFile.Output(opt.specie, opt.assembly);
+	var output = UtilsData.Output(opt.specie, opt.assembly, 'genes');
 
 	//Initialize the output file
 	fs.writeFileSync(output, '', 'utf8');
