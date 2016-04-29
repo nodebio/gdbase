@@ -1,5 +1,5 @@
 //Function for parse the value
-function ParseValue(value, col)
+function ParseValue(value, col, parse)
 {
 	//Check for strand
 	if(col === 'strand')
@@ -9,7 +9,7 @@ function ParseValue(value, col)
 	}
 
 	//Check for start, end or rank
-	else if(col === 'start' || col === 'end' || col === 'rank')
+	if(col === 'start' || col === 'end' || col === 'rank')
 	{
 		//Return the integer value
 		return parseInt(value);
@@ -41,7 +41,7 @@ function ParseLine(line, cols, exclude)
 		if(line[i] === '' || line[i] === ' '){ continue; }
 
 		//Save the object
-		obj[col] = ParseValue(line[i], col);
+		obj[col] = ParseValue(line[i], col, parse);
 	}
 
 	//Return the new object
