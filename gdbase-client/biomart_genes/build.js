@@ -14,7 +14,7 @@ var Build = {
 var UtilsBiomart = require('../utils/biomart.js');
 var UtilsData = require('../utils/data.js');
 
-//Function for build from biomart source
+//Function to build from biomart source
 module.exports = function(opt)
 {
 	//Parse the specie
