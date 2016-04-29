@@ -56,7 +56,7 @@ exports.XML = function(obj, specie, rep)
 	for(var i = 0; i < obj.attributes.length; i++)
 	{
 		//Add the new attribute
-		xml = xml + '<Attribute ' + XMLArgs(obj.attributes[i], ['id']) + '/>';
+		xml = xml + '<Attribute ' + XMLArgs(obj.attributes[i], ['id', 'type']) + '/>';
 	}
 
 	//Close the dataset
