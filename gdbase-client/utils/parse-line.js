@@ -1,19 +1,17 @@
 //Function for parse the value
-function ParseValue(value, col, parse)
+function ParseValue(value, col)
 {
 	//Check for strand
-	if(col === 'strand')
-	{
-		//Return the strand value
-		return (value === '-1') ? '-' : '+';
-	}
+	if(col.id === 'strand'){ return (value === '-1') ? '-' : '+'; }
 
-	//Check for start, end or rank
-	if(col === 'start' || col === 'end' || col === 'rank')
-	{
-		//Return the integer value
-		return parseInt(value);
-	}
+	//Check for string
+	if(col.type === 'string'){ return value; }
+
+	//Check for integer
+	if(col.type === 'integer'){ return parseInt(value); }
+
+	//Check for number
+	if(col.type === 'number'){ return Number(value); }
 
 	//Default, return the value
 	return value;
@@ -31,17 +29,17 @@ function ParseLine(line, cols, exclude)
 	//Read all the cols
 	for(var i = 0; i < cols.length; i++)
 	{
-		//Get the column name
-		var col = cols[i].id;
-
-		//Check for exclude
-		if(exclude.indexOf(col) > -1){ continue; }
+		//Get the column
+		var col = cols[i];
 
 		//Check for empty
 		if(line[i] === '' || line[i] === ' '){ continue; }
 
+		//Check for exclude
+		if(exclude.indexOf(col.id) > -1){ continue; }
+
 		//Save the object
-		obj[col] = ParseValue(line[i], col, parse);
+		obj[col.id] = ParseValue(line[i], col);
 	}
 
 	//Return the new object
