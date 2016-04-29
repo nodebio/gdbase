@@ -7,7 +7,7 @@ var path = require('path');
 var UtilsBiomart = require('../utils/biomart.js');
 var UtilsData = require('../utils/data.js');
 
-//Function for import from biomart
+//Function to import from biomart
 module.exports = function(opt)
 {
 	//Parse the specie
