@@ -2,8 +2,8 @@
 var fs = require('fs');
 var objectSort = require('objectsort');
 
-//Import libs
-var ParseLine = require('./parse-line.js');
+//Import utils
+var ParseLine = require('../utils/parse-line.js');
 
 //Import query
 var queryGenes = require('./query/genes.json');
