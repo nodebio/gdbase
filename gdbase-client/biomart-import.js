@@ -1,5 +1,5 @@
 //Biomart Import
-//Usage: node biomart-import.js --specie SPECIE --assembly ASSEMBLY --dataset DATASET
+//Usage: node biomart-import.js --specie <SPECIE> --assembly <ASSEMBLY> --dataset <DATASET>
 
 //Import dependencies
 var commandLineArgs = require('command-line-args');
