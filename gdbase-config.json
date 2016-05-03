@@ -20,7 +20,8 @@
 		"source": "source/{specie}_{assembly}_{dataset}/",
 		"source_files":
 		{
-			"biomart": { "genes": "biomart_{feature}.txt", "variants": "biomart_variants_{chromosome}.txt" }
+			"biomart": { "genes": "biomart_{feature}.txt", "variants": "biomart_variants_{chromosome}.txt" },
+			"ensembl": { "sequence": "ensembl_sequence_{chromosome}.fa" }
 		}
 	}
 }
