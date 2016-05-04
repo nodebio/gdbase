@@ -1,35 +1,35 @@
+//Import helpers
+var Results = require('../helpers/results.js');
+
 //Import models
-var Assembly = require('../models/assembly.js');
+var Species = require('../models/species.js');
 
 //Middleware for check the specie and the assembly
 module.exports = function(req, res, next)
 {
-	//Initialize the response specie
-	res.specie = { id: '', assembly: 'latest' };
-
 	//Save the specie ID
-	res.specie.id =  req.params.specie.toLowerCase();
+	res.specie =  req.params.specie.toLowerCase();
 
 	//Save the assembly
-	res.specie.assembly = (typeof req.params.assembly !== 'undefined') ? req.params.assembly : 'latest';
+	res.assembly = (typeof req.params.assembly !== 'undefined') ? req.params.assembly : 'latest';
 
 	//Convert the assembly to lower case
-	res.specie.assembly = res.specie.assembly.toLowerCase();
+	res.assembly = res.assembly.toLowerCase();
 
 	//Check the assembly for this specie
-	Assembly.Specie(res.specie.id, function(result){
+	Species.ByID(res.specie, function(result){
 
 		//Check for undefined
-		if(typeof result === 'undefined'){ return res.json([]); }
+		if(typeof result === 'undefined'){ return res.json(Results.Init('Unknow specie ' + res.specie)); }
 
 		//Check for null
-		if(!result){ return res.json([]); }
+		if(!result){ return res.json(Results.Init('Unknow specie ' + res.specie)); }
 
 		//Check the length
-		if(result.length == 0){ return res.json([]); }
+		if(result.length == 0){ return res.json(Results.Init('Unknow specie ' + res.specie)); }
 
 		//Check for latest assembly
-		if(res.specie.assembly === 'latest')
+		if(res.assembly === 'latest')
 		{
 			//Find the latest assembly
 			for(var i = 0; i < result.length; i++)
@@ -38,14 +38,14 @@ module.exports = function(req, res, next)
 				if(result[i].latest === false){ continue; }
 
 				//Update the latest
-				res.specie.assembly = result[i].assembly;
+				res.assembly = result[i].assembly;
 
 				//Continue
 				return next();
 			}
 
 			//If we exit
-			return res.json([]);
+			return res.json(Results.Init('The database has not latest assembly'));
 		}
 
 		//Check if assembly exists
@@ -55,18 +55,18 @@ module.exports = function(req, res, next)
 			for(var i = 0; i < result.length; i++)
 			{
 				//Check for latest
-				if(result[i].assembly !== res.specie.assembly){ continue; }
+				if(result[i].assembly !== res.assembly){ continue; }
 
 				//Continue
 				return next();
 			}
 
 			//If we exit
-			return res.json([]);
+			return res.json(Results.Init('Unknow assembly ' + res.assembly));
 		}
 
 		//Default, show error
-		return res.json([]);
+		return res.json(Results.Init('Unknow assembly ' + res.assembly));
 
 	});
 };
