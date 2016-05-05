@@ -1,4 +1,0 @@
-{
-	"biomart": [ "variants", "genes" ],
-	"ensembl": [ "sequence" ]
-}
