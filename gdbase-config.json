@@ -13,14 +13,6 @@
     "db": "gdbase",
 		"auth": "admin"
   },
-	"data":
-	{
-		"path": "/srv/gdbase/gdbase-data/",
-		"source":
-		{
-			"data": "{specie}_{assembly}_{dataset}/chromosome_{chromosome}.json",
-			"index": "{specie}_{assembly}_{dataset}/index.json"
-		}
-	},
+	"data": { "path": "/srv/gdbase/gdbase-data/" },
 	"build": { "path": "/srv/gdbase/gdbase-build/" }
 }
