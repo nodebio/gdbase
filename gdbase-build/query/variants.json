@@ -1,0 +1,14 @@
+{
+	"dataset": { "name": "{SPECIE}_snp", "interface": "default" },
+	"filters": [ { "name": "chr_name", "value": "{CHROMOSOME}" } ],
+	"attributes":
+	[
+		{ "id": "id", "name": "refsnp_id", "type": "string" },
+		{ "id": "chromosome", "name": "chr_name", "type": "string" },
+		{ "id": "start", "name": "chrom_start", "type": "integer" },
+		{ "id": "end", "name": "chrom_end", "type": "integer" },
+		{ "id": "strand", "name": "chrom_strand", "type": "string" },
+		{ "id": "allele", "name": "allele", "type": "string" },
+		{ "id": "freq", "name": "minor_allele_freq", "type": "number" }
+	]
+}

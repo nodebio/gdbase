@@ -1,0 +1,15 @@
+{
+	"dataset": { "name": "{SPECIE}_gene_ensembl", "interface": "default" },
+	"filters": [],
+	"attributes":
+	[
+		{ "id": "id", "name": "ensembl_gene_id", "type": "string" },
+		{ "id": "name", "name": "external_gene_name", "type": "string" },
+		{ "id": "chromosome", "name": "chromosome_name", "type": "string" },
+		{ "id": "start", "name": "start_position", "type": "integer" },
+		{ "id": "end", "name": "end_position", "type": "integer" },
+		{ "id": "strand", "name": "strand", "type": "string" },
+		{ "id": "biotype", "name": "gene_biotype", "type": "string" },
+		{ "id": "description", "name": "description", "type": "string" }
+	]
+}
