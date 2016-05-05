@@ -1,5 +1,6 @@
 //Import dependencies
 var fs = require('fs');
+var lineByLine = require('n-readlines');
 
 //Import helpers
 var ParseLine = require('./parse-line.js');
@@ -10,23 +11,20 @@ var queryGenCode = require('../query/genes_gencode.json');
 //Build gencode from file
 function BuildGenCode(file, genes)
 {
-	//Get the file content
-	var content = fs.readFileSync(file, 'utf8');
+	//Open the file
+	var liner = new lineByLine(file);
 
-	//Remove \r
-	content = content.replace(/\r/g, '');
-
-	//Split by line break
-	content = content.split('\n');
+	//Initialize the line
+	var line = '';
 
 	//Gencode object
 	var gencode = {};
 
-	//Read all lines
-	for(var i = 0; i < content.length; i++)
+	//Read all the lines
+	while(line = liner.next())
 	{
-		//Get the line
-		var line = content[i];
+		//Convert to string
+		line = line.toString('utf8');
 
 		//Check for empty line
 		if(line === '' || line === ' '){ continue; }
