@@ -22,14 +22,5 @@
 			"index": "{specie}_{assembly}_{dataset}/index.json"
 		}
 	},
-	"build":
-	{
-		"path": "/srv/gdbase/gdbase-build/",
-		"source":
-		{
-			"genes": "{specie}_{assembly}_genes/chromosome_{chromosome}_{feature}.txt",
-			"sequence": "{specie}_{assembly}_sequence/chromosome_{chromosome}.txt",
-			"variants": "{specie}_{assembly}_variants/chromosome_{chromosome}.txt"
-		}
-	}
+	"build": { "path": "/srv/gdbase/gdbase-build/" }
 }
