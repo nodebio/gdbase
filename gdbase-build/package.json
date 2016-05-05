@@ -1,0 +1,12 @@
+{
+	"name": "gdbase-build",
+	"version": "0.0.1",
+	"private": true,
+	"dependencies":
+	{
+		"get-args": "1.0.0",
+		"objectsort": "1.0.0",
+		"n-readlines": "0.2.2",
+		"mkdirp": "0.5.1"
+	}
+}
