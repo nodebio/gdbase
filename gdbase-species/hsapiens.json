@@ -1,0 +1,19 @@
+{
+	"id": "hsapiens",
+	"name": "Homo Sapiens",
+	"import":
+	{
+		"grch38":
+		{
+			"ensembl_biomart": "www.ensembl.org/biomart/martservice?query={xml}",
+			"ensembl_sequence": "ftp.ensembl.org/pub/release-84/fasta/homo_sapiens/dna/Homo_sapiens.GRCh38.dna.chromosome.{chromosome}.fa.gz"
+		},
+		"grch37":
+		{
+			"ensembl_biomart": "grch37.ensembl.org/biomart/martservice?query={xml}",
+			"ensembl_sequence": "ftp.ensembl.org/pub/release-75/fasta/homo_sapiens/dna/Homo_sapiens.GRCh37.75.dna.chromosome.{chromosome}.fa.gz"
+		}
+	},
+	"chromosomes": [ "1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20", "21", "22", "X", "Y" ],
+	"features": [ "genes", "transcripts", "exons", "gencode" ]
+}
