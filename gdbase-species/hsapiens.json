@@ -1,6 +1,11 @@
 {
 	"id": "hsapiens",
-	"name": "Homo Sapiens",
+	"name": "Homo sapiens",
+	"assembly":
+	[
+		{ "id": "grch38", "name": "GRCh38", "latest": true },
+		{ "id": "grch37", "name": "GRCh37", "latest": false}
+	],
 	"import":
 	{
 		"grch38":
