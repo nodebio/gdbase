@@ -1,7 +1,7 @@
 {
 	"server":
 	{
-		"port": 4000,
+		"port": 3005,
 		"host": ""
 	},
 	"db":
@@ -16,12 +16,20 @@
 	"data":
 	{
 		"path": "/srv/gdbase/gdbase-data/",
-		"output": "{specie}_{assembly}_{dataset}.json",
-		"source": "source/{specie}_{assembly}_{dataset}/",
-		"source_files":
+		"source":
 		{
-			"biomart": { "genes": "biomart_{feature}.txt", "variants": "biomart_variants_{chromosome}.txt" },
-			"ensembl": { "sequence": "ensembl_sequence_{chromosome}.fa" }
+			"data": "{specie}_{assembly}_{dataset}/chromosome_{chromosome}.json",
+			"index": "{specie}_{assembly}_{dataset}/index.json"
+		}
+	},
+	"build":
+	{
+		"path": "/srv/gdbase/gdbase-build/",
+		"source":
+		{
+			"genes": "{specie}_{assembly}_genes/chromosome_{chromosome}_{feature}.txt",
+			"sequence": "{specie}_{assembly}_sequence/chromosome_{chromosome}.txt",
+			"variants": "{specie}_{assembly}_variants/chromosome_{chromosome}.txt"
 		}
 	}
 }
