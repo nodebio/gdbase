@@ -2,12 +2,12 @@
 var fs = require('fs');
 var lineByLine = require('n-readlines');
 
-//Import utils
-var ParseLine = require('../utils/parse-line.js');
+//Import helpers
+var ParseLine = require('./parse-line.js');
 
 //Import query
-var queryGenes = require('./query/genes.json');
-var queryTranscripts = require('./query/transcripts.json');
+var queryGenes = require('../query/genes_genes.json');
+var queryTranscripts = require('../query/genes_transcripts.json');
 
 //Build genes from file
 function BuildTranscripts(file, genes)
