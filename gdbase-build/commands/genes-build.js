@@ -2,17 +2,13 @@
 var fs = require('fs');
 var path = require('path');
 
-//Import biomart libs
-var Build = {
-	'exons': require('../helpers/genes-build-exons.js'),
-	'genes': require('../helpers/genes-build-genes.js'),
-	'gencode': require('../helpers/genes-build-gencode.js'),
-	'transcripts': require('../helpers/genes-build-transcripts.js')
-};
-
-//Import utils
-var UtilsBiomart = require('../helpers/biomart.js');
-var UtilsData = require('../helpers/data.js');
+//Import helpers
+var Biomart = require('../helpers/biomart.js');
+var BuildExons = require('../helpers/genes-build-exons.js');
+var BuildGenes = require('../helpers/genes-build-genes.js');
+var BuildGencode = require('../helpers/genes-build-gencode.js');
+var BuildTranscripts = require('../helpers/genes-build-transcripts.js');
+var Data = require('../helpers/data.js');
 
 //Import the config file
 var Config = require('../../gdbase-config.json');
@@ -31,6 +27,9 @@ module.exports = function(opt)
 
 	//Get the specie info
 	var Specie = require('../../gdbase-species/' + opt.specie + '.json');
+
+	//Build
+	var Build = { exons: BuildExons, genes: BuildGenes, gencode: BuildGencode, transcripts: BuildTranscripts };
 
 	//Read all the chromosomes
 	for(var i = 0; i < Specie.chromosomes.length; i++)
@@ -51,7 +50,7 @@ module.exports = function(opt)
 			var feature = Specie.features[j];
 
 			//Get the input file
-			var input = path.join(folder, UtilsData.SourceFile('biomart', 'genes', { feature: feature }));
+			var input = path.join(folder, UtilsData.SourceFile('genes', { feature: feature }));
 
 			//Build the feature
 			genes = Build[feature](input, genes);
