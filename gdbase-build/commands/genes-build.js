@@ -8,7 +8,7 @@ var BuildExons = require('../helpers/genes-build-exons.js');
 var BuildGenes = require('../helpers/genes-build-genes.js');
 var BuildGencode = require('../helpers/genes-build-gencode.js');
 var BuildTranscripts = require('../helpers/genes-build-transcripts.js');
-var Data = require('../helpers/data.js');
+var Paths = require('../helpers/paths.js');
 
 //Import the config file
 var Config = require('../../gdbase-config.json');
@@ -23,13 +23,22 @@ module.exports = function(opt)
 	opt.assembly = opt.assembly.toLowerCase();
 
 	//Get the source folder
-	var folder = UtilsData.Source(opt.specie, opt.assembly, 'genes');
+	var folder_source = Paths.SourceDir(opt.specie, opt.assembly, 'genes');
+
+	//Get the output folder
+	var folder_output = Paths.OutputDir(opt.specie, opt.assembly, 'genes');
 
 	//Get the specie info
 	var Specie = require('../../gdbase-species/' + opt.specie + '.json');
 
 	//Build
 	var Build = { exons: BuildExons, genes: BuildGenes, gencode: BuildGencode, transcripts: BuildTranscripts };
+
+	//Get the output index file
+	var output_index = path.join(folder_output, Paths.OutputIndex());
+
+	//Initialize the output index file
+	fs.writeFileSync(output_index, '', 'utf8');
 
 	//Read all the chromosomes
 	for(var i = 0; i < Specie.chromosomes.length; i++)
@@ -50,23 +59,32 @@ module.exports = function(opt)
 			var feature = Specie.features[j];
 
 			//Get the input file
-			var input = path.join(folder, UtilsData.SourceFile('genes', { feature: feature }));
+			var input = path.join(folder_source, Paths.SourceFile(chr, feature));
 
 			//Build the feature
 			genes = Build[feature](input, genes);
 		}
 
-		//Get the output file
-		var output = UtilsData.Output(opt.specie, opt.assembly, 'genes');
+		//Get the output json file
+		var output_json = path.join(folder_output, Paths.OutputJson(chr));
 
-		//Initialize the output file
-		fs.writeFileSync(output, '', 'utf8');
+		//Initialize the output json file
+		fs.writeFileSync(output_json, '', 'utf8');
 
 		//Read all genes
 		for(var j = 0; j < genes.length; i++)
 		{
+			//Get the gene info
+			var g = genes[j];
+
 		  //Save the line
-		  fs.appendFileSync(output, JSON.stringify(genes[j]) + '\n', 'utf8');
+		  fs.appendFileSync(output_json, JSON.stringify(g) + '\n', 'utf8');
+
+			//Create the index
+			var index = { 'id': g.id, 'name': g.name, 'chromosome': g.chromosome };
+
+			//Save the index
+			fs.appendFileSync(output_index, JSON.stringify(index) + '\n', 'utf8');
 		}
 	}
 
