@@ -4,21 +4,20 @@
 	"assembly":
 	[
 		{ "id": "grch38", "name": "GRCh38", "latest": true },
-		{ "id": "grch37", "name": "GRCh37", "latest": false}
+		{ "id": "grch37", "name": "GRCh37", "latest": false }
 	],
-	"import":
-	{
-		"grch38":
-		{
-			"ensembl_biomart": "www.ensembl.org/biomart/martservice?query={xml}",
-			"ensembl_sequence": "ftp.ensembl.org/pub/release-84/fasta/homo_sapiens/dna/Homo_sapiens.GRCh38.dna.chromosome.{chromosome}.fa.gz"
-		},
-		"grch37":
-		{
-			"ensembl_biomart": "grch37.ensembl.org/biomart/martservice?query={xml}",
-			"ensembl_sequence": "ftp.ensembl.org/pub/release-75/fasta/homo_sapiens/dna/Homo_sapiens.GRCh37.75.dna.chromosome.{chromosome}.fa.gz"
-		}
-	},
 	"chromosomes": [ "1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20", "21", "22", "X", "Y" ],
-	"features": [ "genes", "transcripts", "exons", "gencode" ]
+	"data":
+	{
+		"genes": { "id": true, "region": true },
+		"sequence": { "id": false, "region": true },
+		"variants": { "id": false, "region": true }
+	},
+	"index":
+	{
+		"genes": { "id": 1, "name": 1, "chromosome": 1, "start": 1 },
+		"genes_index": { "id": 1, "name": 1 },
+		"sequence": { "chromosome": 1, "start": 1 },
+		"variants": { "start": 1 }
+	}
 }
