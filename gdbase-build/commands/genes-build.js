@@ -1,9 +1,10 @@
 //Import dependencies
 var fs = require('fs');
+var mkdirp = require('mkdirp');
+var objectsort = require('objectsort');
 var path = require('path');
 
 //Import helpers
-var Biomart = require('../helpers/biomart.js');
 var BuildExons = require('../helpers/genes-build-exons.js');
 var BuildGenes = require('../helpers/genes-build-genes.js');
 var BuildGencode = require('../helpers/genes-build-gencode.js');
@@ -13,7 +14,7 @@ var Paths = require('../helpers/paths.js');
 //Import the config file
 var Config = require('../../gdbase-config.json');
 
-//Function to build from biomart source
+//Function to build genes
 module.exports = function(opt)
 {
 	//Parse the specie
@@ -22,23 +23,23 @@ module.exports = function(opt)
 	//Parse the assembly
 	opt.assembly = opt.assembly.toLowerCase();
 
-	//Get the source folder
-	var folder_source = Paths.SourceDir(opt.specie, opt.assembly, 'genes');
+	//Get the output json folder
+	var folder_output = Paths.OutputFolder(opt.specie, opt.assembly, 'genes');
 
-	//Get the output folder
-	var folder_output = Paths.OutputDir(opt.specie, opt.assembly, 'genes');
+	//Create the output folder
+	mkdirp.sync(folder_output, '0777');
 
 	//Get the specie info
-	var Specie = require('../../gdbase-species/' + opt.specie + '.json');
+	var Specie = require('../../gdbase-specie/' + opt.specie + '.json');
+
+	//Get the species source
+	var SpecieSource = require('../source/' + opt.specie + '.json');
 
 	//Build
 	var Build = { exons: BuildExons, genes: BuildGenes, gencode: BuildGencode, transcripts: BuildTranscripts };
 
-	//Get the output index file
-	var output_index = path.join(folder_output, Paths.OutputIndex());
-
-	//Initialize the output index file
-	fs.writeFileSync(output_index, '', 'utf8');
+	//Full genes list
+	var list = [];
 
 	//Read all the chromosomes
 	for(var i = 0; i < Specie.chromosomes.length; i++)
@@ -52,40 +53,56 @@ module.exports = function(opt)
 		//Initialize the genes
 		var genes = [];
 
+		//Get the source file
+		var file_source = Paths.SourceFile(chr);
+
 		//Read all the features
-		for(var j = 0; j < Specie.features.length; j++)
+		for(var j = 0; j < SpecieSource.genes.features.length; j++)
 		{
 			//Get the feature
-			var feature = Specie.features[j];
+			var feature = SpecieSource.genes.features[j];
 
-			//Get the input file
-			var input = path.join(folder_source, Paths.SourceFile(chr, feature));
+			//Get the source folder
+			var folder_source = Paths.SourceFolder(opt.specie, opt.assembly, feature);
 
 			//Build the feature
-			genes = Build[feature](input, genes);
+			genes = Build[feature](path.join(folder_source, file_source), genes);
 		}
 
-		//Get the output json file
-		var output_json = path.join(folder_output, Paths.OutputJson(chr));
+		//Get the output file
+		var file_output = path.join(folder_output, Paths.OutputFile(chr));
 
 		//Initialize the output json file
-		fs.writeFileSync(output_json, '', 'utf8');
+		fs.writeFileSync(file_output, '', 'utf8');
 
 		//Read all genes
-		for(var j = 0; j < genes.length; i++)
+		for(var j = 0; j < genes.length; j++)
 		{
 			//Get the gene info
 			var g = genes[j];
 
 		  //Save the line
-		  fs.appendFileSync(output_json, JSON.stringify(g) + '\n', 'utf8');
-
-			//Create the index
-			var index = { 'id': g.id, 'name': g.name, 'chromosome': g.chromosome };
+		  fs.appendFileSync(file_output, JSON.stringify(g) + '\n', 'utf8');
 
 			//Save the index
-			fs.appendFileSync(output_index, JSON.stringify(index) + '\n', 'utf8');
+			list.push({ id: g.id, name: g.name, chromosome: g.chromosome });
 		}
+	}
+
+	//Sort the genes list
+	list = objectsort(list, 'name');
+
+	//Get the index file
+	var file_index = path.join(folder_output, Paths.OutputIndex());
+
+	//Initialize the index file
+	fs.writeFileSync(file_index, '', 'utf8');
+
+	//Read all genes
+	for(var j = 0; j < list.length; j++)
+	{
+		//Save to the index file
+		fs.appendFileSync(file_index, JSON.stringify(list[j]) + '\n', 'utf8');
 	}
 
 	//Show in console
