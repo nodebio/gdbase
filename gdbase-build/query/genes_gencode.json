@@ -1,6 +1,10 @@
 {
 	"dataset": { "name": "{SPECIE}_gene_ensembl", "interface": "default" },
-	"filters":[ { "name": "transcript_gencode_basic", "excluded": "0" } ],
+	"filters":
+	[
+		{ "name": "transcript_gencode_basic", "excluded": "0" },
+		{ "name": "chromosome_name", "value": "{CHROMOSOME}" } 
+	],
 	"attributes":
 	[
 		{ "id": "gene", "name": "ensembl_gene_id", "type": "string" },

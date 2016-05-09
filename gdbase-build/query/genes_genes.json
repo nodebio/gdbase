@@ -1,6 +1,6 @@
 {
 	"dataset": { "name": "{SPECIE}_gene_ensembl", "interface": "default" },
-	"filters": [],
+	"filters": [ { "name": "chromosome_name", "value": "{CHROMOSOME}" } ],
 	"attributes":
 	[
 		{ "id": "id", "name": "ensembl_gene_id", "type": "string" },
