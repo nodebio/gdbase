@@ -1,0 +1,18 @@
+{
+	"genes":
+	{
+		"features": [ "genes", "transcripts", "exons", "gencode" ],
+		"url_grch38": "www.ensembl.org/biomart/martservice?query={xml}",
+		"url_grch37": "grch37.ensembl.org/biomart/martservice?query={xml}"
+	},
+	"variants":
+	{
+		"url_grch38": "www.ensembl.org/biomart/martservice?query={xml}",
+		"url_grch37": "grch37.ensembl.org/biomart/martservice?query={xml}"
+	},
+	"sequence":
+	{
+		"url_grch38": "ftp.ensembl.org/pub/release-84/fasta/homo_sapiens/dna/Homo_sapiens.GRCh38.dna.chromosome.{chromosome}.fa.gz",
+		"url_grch37": "ftp.ensembl.org/pub/release-75/fasta/homo_sapiens/dna/Homo_sapiens.GRCh37.75.dna.chromosome.{chromosome}.fa.gz"
+	}
+}
