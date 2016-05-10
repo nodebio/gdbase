@@ -1,4 +1,4 @@
-//GDBase client tool
+//GDBase build tool
 //Usage: node gdbase-build.js command --dataset <DATASET> --specie <SPECIE> --assembly <ASSEMBLY>
 
 //Import dependencies
