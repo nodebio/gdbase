@@ -17,56 +17,48 @@ module.exports = function(req, res, next)
 	res.assembly = res.assembly.toLowerCase();
 
 	//Check the assembly for this specie
-	Species.ByID(res.specie, function(result){
+	var result = Species.ByID(res.specie);
 
-		//Check for undefined
-		if(typeof result === 'undefined'){ return res.json(Results.Init('Unknow specie ' + res.specie)); }
+	//Check the length
+	if(result.length == 0){ return res.json(Results.Init('Unknow specie ' + res.specie)); }
 
-		//Check for null
-		if(!result){ return res.json(Results.Init('Unknow specie ' + res.specie)); }
-
-		//Check the length
-		if(result.length == 0){ return res.json(Results.Init('Unknow specie ' + res.specie)); }
-
-		//Check for latest assembly
-		if(res.assembly === 'latest')
+	//Check for latest assembly
+	if(res.assembly === 'latest')
+	{
+		//Find the latest assembly
+		for(var i = 0; i < result.length; i++)
 		{
-			//Find the latest assembly
-			for(var i = 0; i < result.length; i++)
-			{
-				//Check for latest
-				if(result[i].latest === false){ continue; }
+			//Check for latest
+			if(result[i].latest === false){ continue; }
 
-				//Update the latest
-				res.assembly = result[i].assembly;
+			//Update the latest
+			res.assembly = result[i].assembly;
 
-				//Continue
-				return next();
-			}
-
-			//If we exit
-			return res.json(Results.Init('The database has not latest assembly'));
+			//Continue
+			return next();
 		}
 
-		//Check if assembly exists
-		else
+		//If we exit
+		return res.json(Results.Init('The database has not latest assembly'));
+	}
+
+	//Check if assembly exists
+	else
+	{
+		//Find the assembly
+		for(var i = 0; i < result.length; i++)
 		{
-			//Find the assembly
-			for(var i = 0; i < result.length; i++)
-			{
-				//Check for latest
-				if(result[i].assembly !== res.assembly){ continue; }
+			//Check for latest
+			if(result[i].assembly !== res.assembly){ continue; }
 
-				//Continue
-				return next();
-			}
-
-			//If we exit
-			return res.json(Results.Init('Unknow assembly ' + res.assembly));
+			//Continue
+			return next();
 		}
 
-		//Default, show error
+		//If we exit
 		return res.json(Results.Init('Unknow assembly ' + res.assembly));
+	}
 
-	});
+	//Default, show error
+	return res.json(Results.Init('Unknow assembly ' + res.assembly));
 };
