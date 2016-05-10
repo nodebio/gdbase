@@ -2,63 +2,48 @@
 var path = require('path');
 
 //Import helpers
-var ReplaceValue = require('./replace-value.js');
+var ReplaceValues = require('./replace-values.js');
 
 //Import config
 var Config = require('../../gdbase-config.json');
 
-//Function to get the source dir
-exports.SourceDir = function(s, a, d)
+//Function to get the source folder
+exports.SourceFolder = function(s, a, d)
 {
 	//Get the source folder
-	var source = '{specie}_{assembly}_{dataset}/';
-
-	//Replace the values
-	source = ReplaceValues(source, { 'specie': s, 'assembly': a, 'dataset': d });
+	var source = ReplaceValues('{specie}_{assembly}_{dataset}/', { 'specie': s, 'assembly': a, 'dataset': d });
 
 	//Concatenate the paths and return
-	return path.join(Config.build.path, 'source/', source);
+	return path.join(Config.data.path, 'source/', source);
 };
 
 //Function to get the source file
-exports.SourceFile = function(c, f)
+exports.SourceFile = function(c)
 {
-	//Get the source file
-	var source = 'chr_{chromosome}.txt';
-
-	//Check for feature
-	if(typeof f !== 'undefined'){ c = c + '_' + f; }
-
-	//Replace the values
-	return ReplaceValues(source, { 'chromosome': c });
+	//Return the temporal file
+	return ReplaceValues('chromosome_{chr}.txt', { chr: c });
 };
 
-//Function to get the output dir
-exports.OutputDir = function(s, a, d)
+//Function to get the output folder
+exports.OutputFolder = function(s, a, d)
 {
 	//Get the output folder
-	var output = '{specie}_{assembly}_{dataset}/';
-
-	//Replace the values
-	output = ReplaceValues(output, { 'specie': s, 'assembly': a, 'dataset': d });
+	var output = ReplaceValues('{specie}_{assembly}_{dataset}/', { 'specie': s, 'assembly': a, 'dataset': d });
 
 	//Concatenate the paths and return
 	return path.join(Config.data.path, output);
 };
 
-//Function to get the output json file
-exports.OutputJson = function(c)
+//Function to get the output file
+exports.OutputFile = function(c)
 {
-	//Get the source file
-	var source = 'chr_{chromosome}.json';
-
-	//Replace the values
-	return ReplaceValues(source, { 'chromosome': c });
+	//Return the temporal file
+	return ReplaceValues('chromosome_{chr}.json', { chr: c });
 };
 
-//Function to get the index file
+//Function to get the output index
 exports.OutputIndex = function()
 {
-	//Return the index file
+	//Return the output index file
 	return 'index.json';
 };
