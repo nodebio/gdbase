@@ -12,7 +12,7 @@
     "express-session": "*",
     "morgan": "~1.6.1",
     "serve-favicon": "~2.3.0",
-    "mongodb": "2.1.9",
+    "mongoware": "1.0.0",
     "objectsort": "0.1.2",
     "gen-coord": "1.1.0"
   }
