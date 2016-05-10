@@ -7,9 +7,7 @@ var logger = require('morgan');
 var bodyParser = require('body-parser');
 var cookieParser = require('cookie-parser');
 var session = require('express-session');
-
-//Import helpers
-var db = require('./helpers/db.js');
+var db = require('mongoware');
 
 //Import middlewares
 var SetHeaders = require('./middlewares/set-headers.js');
